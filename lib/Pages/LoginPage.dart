@@ -35,26 +35,51 @@ class _LoginpageState extends State<Loginpage> {
                             ? "Matnda 8 ta dan kam belgi bo'lmasligi kerak!!!"
                             : null;
                         _secondErrorText = !value.contains(RegExp(r'[A-Z]'))
-                            ? "Matnda hec bo'lmaganda bitta katta harf bo'lishi kerak !!!"
+                            ? "Matnda kamidaA bitta katta harf bo'lishi kerak !!!"
                             : null;
                       });
-
                     },
                     decoration: InputDecoration(
                       labelText: "write everything you want",
                       border: OutlineInputBorder()
                     ),
                   ),
-                  SizedBox(height: 10,),
-                  if(_errorText!= null)
-                    Text(
-                      _errorText!, style: TextStyle(color: Colors.red),
-                    ),
-                  SizedBox(height: 10,),
-                  if (_secondErrorText!=null)
-                    Text(
-                      _secondErrorText!, style: TextStyle(color: Colors.red),
-                    ),
+                  SizedBox(height: 7,),
+                  if(controller.text.isEmpty)
+                    SizedBox.shrink()
+                  else if(_errorText != null)
+                    Row(
+                      children: [
+                        Icon(Icons.close, color: Colors.red,),
+                        SizedBox(width: 5,),
+                        Text(_errorText!, style: TextStyle( color: Colors.red),)
+                      ],
+                    )else
+                      Row(
+                        children: [
+                          Icon(Icons.check, color: Colors.green,),
+                          SizedBox(width: 5,),
+                          Text("To'g'ri kiritldi!!!", style: TextStyle(color: Colors.green),)
+                        ],
+                      ),
+                  SizedBox(height: 7,),
+                  if(controller.text.isEmpty)
+                    SizedBox.shrink()
+                  else if(_secondErrorText != null)
+                    Row(
+                      children: [
+                        Icon(Icons.close, color: Colors.red,),
+                        SizedBox(width: 5,),
+                        Text(_secondErrorText!, style: TextStyle(color: Colors.red),)
+                      ],
+                    )else
+                      Row(
+                        children: [
+                          Icon(Icons.check, color: Colors.green,),
+                          SizedBox(width: 5,),
+                          Text("To'g'ri kiritildi!!!", style: TextStyle(color: Colors.green),)
+                        ],
+                      ),
                   SizedBox(height: 10,),
                   ElevatedButton(child: Text("Sign UP"),
                     onPressed: isFormValid() ? (){
@@ -62,6 +87,7 @@ class _LoginpageState extends State<Loginpage> {
                      controller.clear();
                      _errorText = null;
                      _secondErrorText = null;
+
                     });
                         Fluttertoast.showToast(
                           msg: "Successfully signed up!!!",
